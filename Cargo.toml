@@ -1,0 +1,8 @@
+[package]
+name = "avl_tree"
+version = "0.1.0"
+authors = ["Caleb McCarthy <caleb.a.mccarthy@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+rand = "0.7"
