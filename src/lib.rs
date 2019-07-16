@@ -9,13 +9,17 @@ pub struct Avl_Tree {
 
 impl Avl_Tree {
 
-    fn new(d: i32)-> Avl_Tree{
+    pub fn new(d: i32)-> Avl_Tree{
         Avl_Tree {
             root: Box::into_raw(Box::new(Node::new(d))),
         }
     }
+
+    pub fn get_root(&self)->*mut Node {
+        return self.root
+    }
     
-    fn insert(&mut self,n:i32) {
+    pub fn insert(&mut self,n:i32) {
         unsafe {
             if ! self.root.is_null(){
                 (*self.root).insert(n);
@@ -25,7 +29,7 @@ impl Avl_Tree {
         }
     }
 
-    fn is_balanced(&self)->bool {
+    pub fn is_balanced(&self)->bool {
         unsafe {
             if ! self.root.is_null() {
                 return (*self.root).is_balanced();
@@ -35,7 +39,7 @@ impl Avl_Tree {
             }
         }
     }
-    fn get_depth(&self)-> i32 {
+    pub fn get_depth(&self)-> i32 {
         unsafe {
             if ! self.root.is_null() {
                 return (*self.root).get_depth();
@@ -45,7 +49,7 @@ impl Avl_Tree {
         }
     }
 
-    fn print_tree(&self) {
+    pub fn print_tree(&self) {
         unsafe {
             if ! self.root.is_null() {
                 (*self.root).print_tree();
@@ -53,7 +57,7 @@ impl Avl_Tree {
         }
     }
 
-    fn delete_left(&mut self){
+    pub fn delete_left(&mut self){
         unsafe {
             if ! self.root.is_null() {
                 (*self.root).delete_left();
@@ -61,7 +65,7 @@ impl Avl_Tree {
         }
     }
 
-    fn delete_right(&mut self){
+    pub fn delete_right(&mut self){
         unsafe {
             if ! self.root.is_null() {
                 (*self.root).delete_right();
@@ -87,6 +91,9 @@ impl Node {
             data: d,
             parent: ptr::null_mut(),
         }
+    }
+    pub fn get_left(&self)->*mut Node{
+        return self.left;
     }
 
     /*
@@ -343,17 +350,3 @@ impl Node {
 
 
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_depth() {
-        let mut a_tree = Avl_Tree::new(100);
-        a_tree.insert(99);
-        a_tree.insert(98);
-        println!("Tree Depth{}",a_tree.get_depth());
-    
-        assert_eq!(1, a_tree.get_depth());
-    }
-}
